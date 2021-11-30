@@ -1,0 +1,49 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# eBUSd Addon for Home Assistant
+# ==============================================================================
+
+
+#hardware=$(bashio::config 'hardware')
+#
+#if [ "${hardware}" == "usb" ]
+#then
+#	bashio::log.info "ToDo - start in USB connected mode"
+#	exit
+#
+#elif [ "${hardware}" == "mqtt" ]
+#then
+#	bashio::log.info "ToDo - start in MQTT connected mode"
+#	exit
+#
+#elif [ "${hardware}" == "network" ]
+#then
+#	bashio::log.info "ToDo - start in network connected mode"
+#	ebusd_options=""
+#
+#else
+#	bashio::log.info "please choose and setup a hardware option"
+#	exit
+#
+#fi
+
+
+
+#    --configpath "${EBUSDCONFIGPATH}" \
+#    --device=$(bashio::config 'device') \
+#    --port=$(bashio::addon.port '8888/tcp') \
+
+exec /usr/bin/ebusd \
+    --foreground  \
+    --scanconfig \
+    --device=udp:192.168.178.123:10000 \
+    --port=8888 \
+    --updatecheck=off \
+    --enablehex \
+    --httpport=8889
+
+#    --mqttretain \
+#    --mqtthost=$(bashio::services mqtt "host") \
+#    --mqttport=$(bashio::services mqtt "port") \
+#    --mqttuser=$(bashio::services mqtt "username") \
+#    --mqttpass=$(bashio::services mqtt "password")

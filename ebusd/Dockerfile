@@ -7,8 +7,25 @@ COPY rootfs /
 
 # Setup base
 RUN apk add --no-cache \
-    coreutils=8.32-r2 \
-    wget=1.21.1-r1
+	build-base \
+	argp-standalone \
+	autoconf \
+	automake \
+	gcc \
+	make \
+	git
+
+#RUN apk add --no-cache mosquitto-dev
+
+
+WORKDIR /build
+RUN git clone https://github.com/john30/ebusd.git /build
+RUN ./autogen.sh && make && make install
+
+
+RUN ./src/ebusd/ebusd --help
+#RUN ./src/ebusd/ebusd --usage
+
 
 # Build arguments
 ARG BUILD_ARCH
@@ -26,13 +43,13 @@ LABEL \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
-    maintainer="Franck Nijhof <frenck@addons.community>" \
+    maintainer="Dennis Koot <koter84@gmail.com>" \
     org.opencontainers.image.title="${BUILD_NAME}" \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
-    org.opencontainers.image.vendor="Home Assistant Community Add-ons" \
-    org.opencontainers.image.authors="Franck Nijhof <frenck@addons.community>" \
+    org.opencontainers.image.vendor="koter84" \
+    org.opencontainers.image.authors="Dennis Koot <koter84@gmail.com>" \
     org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.url="https://addons.community" \
+    org.opencontainers.image.url="https://github.com/koter84/addon-ebusd" \
     org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
     org.opencontainers.image.documentation="https://github.com/${BUILD_REPOSITORY}/blob/main/README.md" \
     org.opencontainers.image.created=${BUILD_DATE} \

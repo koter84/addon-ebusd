@@ -1,0 +1,17 @@
+---
+name: eBUSd
+version: dev
+slug: ebusd
+description: eBUSd add-on by Dennis
+url: https://github.com/koter84/addon-ebusd
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+options:
+  log_level: info
+schema:
+  log_level: list(trace|debug|info|notice|warning|error|fatal)
