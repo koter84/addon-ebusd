@@ -13,5 +13,7 @@ arch:
   - i386
 options:
   log_level: info
+  device: net:192.168.123.123:10000
 schema:
   log_level: list(trace|debug|info|notice|warning|error|fatal)
+  device: string
